@@ -170,7 +170,7 @@ Place the following images in the `images/` folder at the project root for the l
 
 ## 👥 Author
 
-Developed as part of an Inventory Management System project (NASCA).
+Developed as part of a project for ICT ACADEMY of KERALA by Anagha V Nair, Ashna Anna Biju, Chaithanya M, Nrithika Dileepkumar and Shreelekshmi Pillai.
 
 ---
 
