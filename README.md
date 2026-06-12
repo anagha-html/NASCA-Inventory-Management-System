@@ -164,7 +164,7 @@ Place the following images in the `images/` folder at the project root for the l
 
 ## 📦 External APIs
 
-- **[Open Food Facts API](https://world.openfoodfacts.org/data)** — used for barcode-based product lookup when adding new inventory items. No API key required.
+- **[Open Food Facts API](https://world.openfoodfacts.org/data)** —used for barcode-based product lookup when adding new inventory items. No API key required.
 
 ---
 
