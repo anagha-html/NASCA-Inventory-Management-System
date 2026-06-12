@@ -33,7 +33,7 @@ public class SuppliersPanel extends JPanel {
         loadSuppliers();
     }
 
-    // ── TOP BAR ──────────────────────────────────────────────────────────────
+    // top bar
 
     private JPanel buildTopBar() {
         JPanel bar = new JPanel(new BorderLayout());
@@ -53,7 +53,7 @@ public class SuppliersPanel extends JPanel {
         return bar;
     }
 
-    // ── CONTENT ──────────────────────────────────────────────────────────────
+    // content
 
     private JPanel buildContent() {
         JPanel content = new JPanel();
@@ -76,7 +76,7 @@ public class SuppliersPanel extends JPanel {
             new EmptyBorder(16, 16, 16, 16)
         ));
 
-        // ── Header: title + buttons ──
+        // header titles and buttons 
         JPanel header = new JPanel(new BorderLayout(8, 0));
         header.setOpaque(false);
         header.setBorder(new EmptyBorder(0, 0, 12, 0));
@@ -99,7 +99,7 @@ public class SuppliersPanel extends JPanel {
         header.add(tableTitle, BorderLayout.WEST);
         header.add(buttons,    BorderLayout.EAST);
 
-        // ── Table ──
+        // table
         String[] cols = {"ID", "Supplier Name", "Contact Number", "Email", "Address"};
         tableModel = new DefaultTableModel(cols, 0) {
             @Override public boolean isCellEditable(int r, int c) { return false; }
@@ -169,7 +169,7 @@ public class SuppliersPanel extends JPanel {
         return b;
     }
 
-    // ── LOAD SUPPLIERS ────────────────────────────────────────────────────────
+    // load suppliers
 
     private void loadSuppliers() {
         new SwingWorker<Void, Void>() {
@@ -201,7 +201,7 @@ public class SuppliersPanel extends JPanel {
         }.execute();
     }
 
-    // ── ADD SUPPLIER ─────────────────────────────────────────────────────────
+    //add suppliers 
 
     private void showAddDialog() {
         JDialog dialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(this), "Add Supplier", true);
@@ -276,7 +276,7 @@ public class SuppliersPanel extends JPanel {
         dialog.setVisible(true);
     }
 
-    // ── UPDATE SUPPLIER ───────────────────────────────────────────────────────
+    // update
 
     private void updateSelectedSupplier() {
         int row = table.getSelectedRow();
@@ -367,7 +367,7 @@ public class SuppliersPanel extends JPanel {
         dialog.setVisible(true);
     }
 
-    // ── DELETE SUPPLIER ───────────────────────────────────────────────────────
+    // delete supplier
 
     private void deleteSelectedSupplier() {
         int row = table.getSelectedRow();
