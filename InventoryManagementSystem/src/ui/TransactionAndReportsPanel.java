@@ -207,7 +207,7 @@ public class TransactionAndReportsPanel extends JPanel {
         return card;
     }
 
-    // ── 2. TRANSACTION LOG ───────────────────────────────────────────────────
+    // transaction log
 
     private JPanel buildLogTab() {
         JPanel card = card("Transaction Log");
@@ -268,7 +268,7 @@ public class TransactionAndReportsPanel extends JPanel {
         }.execute();
     }
 
-    // ── 3. REPORTS ───────────────────────────────────────────────────────────
+    // reports tab
 
     private JPanel buildReportsTab() {
         JPanel card = card("Reports");
@@ -433,7 +433,7 @@ public class TransactionAndReportsPanel extends JPanel {
         }.execute();
     }
 
-    // ── SHARED UI HELPERS ────────────────────────────────────────────────────
+    // ui
 
     private JPanel card(String title) {
         JPanel card = new JPanel(new BorderLayout());
@@ -573,7 +573,7 @@ public class TransactionAndReportsPanel extends JPanel {
         return cause.getMessage() != null ? cause.getMessage() : cause.toString();
     }
 
-    // ── ITEM COMBO BOX ───────────────────────────────────────────────────────
+    // items box
 
     private static class Item {
         final int id; final String name; final int qty; final double price;
