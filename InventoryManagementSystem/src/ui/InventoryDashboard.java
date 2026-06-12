@@ -61,7 +61,7 @@ public class InventoryDashboard extends JFrame {
 
     public InventoryDashboard() { this("Admin"); }
 
-    // ── SIDEBAR ──────────────────────────────────────────────────────────────
+    // green sidebar
 
     private JPanel buildSidebar() {
         JPanel sidebar = new JPanel();
@@ -174,7 +174,7 @@ public class InventoryDashboard extends JFrame {
         return s;
     }
 
-    // ── MAIN AREA ─────────────────────────────────────────────────────────────
+    // main area
 
     private JPanel buildMainArea() {
         contentCards.setBackground(BG);
@@ -230,7 +230,7 @@ public class InventoryDashboard extends JFrame {
         return dash;
     }
 
-    // ── BANNER ────────────────────────────────────────────────────────────────
+    // banner with refresh button
 
     private JPanel buildBanner() {
         JPanel banner = new JPanel(new BorderLayout());
@@ -282,7 +282,7 @@ public class InventoryDashboard extends JFrame {
         return banner;
     }
 
-    // ── STAT CARDS ────────────────────────────────────────────────────────────
+    // stat cards 
 
     private JPanel buildStatCards() {
         JPanel row = new JPanel(new GridLayout(1, 4, 12, 0));
@@ -340,7 +340,7 @@ public class InventoryDashboard extends JFrame {
         return card;
     }
 
-    // ── BOTTOM ────────────────────────────────────────────────────────────────
+
 
     private JPanel buildBottom() {
         JPanel row = new JPanel(new BorderLayout(12, 0));
@@ -350,7 +350,7 @@ public class InventoryDashboard extends JFrame {
         return row;
     }
 
-    // ── TABLE ────────────────────────────────────────────────────────────────
+    // table
 
     private JPanel buildTable() {
         JPanel card = new JPanel(new BorderLayout());
@@ -485,7 +485,7 @@ public class InventoryDashboard extends JFrame {
         return card;
     }
 
-    // ── ALERTS ───────────────────────────────────────────────────────────────
+    // aletrs box
 
     private JPanel buildAlerts() {
         JPanel card = new JPanel(new BorderLayout());
@@ -535,7 +535,7 @@ public class InventoryDashboard extends JFrame {
         return row;
     }
 
-    // ── LOAD DATA ─────────────────────────────────────────────────────────────
+    // load data
 
     private void loadData() {
         new SwingWorker<Void, Void>() {
@@ -603,7 +603,7 @@ public class InventoryDashboard extends JFrame {
         }.execute();
     }
 
-    // ── SEARCH ────────────────────────────────────────────────────────────────
+    // search inventory
 
     private void searchItems(String keyword) {
         new SwingWorker<Void, Void>() {
@@ -638,7 +638,7 @@ public class InventoryDashboard extends JFrame {
         }.execute();
     }
 
-    // ── ADD ITEM (with barcode lookup) ────────────────────────────────────────
+    // add item 
 
     private void showAddDialog() {
         JDialog dialog = new JDialog(this, "Add New Item", true);
@@ -647,7 +647,7 @@ public class InventoryDashboard extends JFrame {
         dialog.setLayout(new BorderLayout());
         dialog.getContentPane().setBackground(WHITE);
 
-        // ── Barcode section at top ──────────────────────────────────────────
+        // barcode
         JPanel barcodeSection = new JPanel(new BorderLayout(0, 4));
         barcodeSection.setBackground(new Color(245, 250, 247));
         barcodeSection.setBorder(new CompoundBorder(
@@ -690,7 +690,7 @@ public class InventoryDashboard extends JFrame {
         barcodeSection.add(barcodeRow,     BorderLayout.CENTER);
         barcodeSection.add(barcodeLbl,     BorderLayout.SOUTH);
 
-        // ── Main form ──────────────────────────────────────────────────────
+        // main form
         JPanel form = new JPanel(new GridLayout(6, 2, 8, 12));
         form.setBackground(WHITE);
         form.setBorder(new EmptyBorder(16, 24, 10, 24));
@@ -709,7 +709,7 @@ public class InventoryDashboard extends JFrame {
         form.add(lbl("Min Stock Level:")); form.add(fMin);
         form.add(lbl("Supplier ID:"));     form.add(fSup);
 
-        // ── Barcode lookup logic ───────────────────────────────────────────
+        // barcode
         Runnable doLookup = () -> {
             String barcode = fBarcode.getText().trim();
             if (barcode.isEmpty()) return;
@@ -733,11 +733,10 @@ public class InventoryDashboard extends JFrame {
                             barcodeLbl.setForeground(Color.RED);
                             barcodeLbl.setText("✗ Product not found for barcode: " + barcode);
                         } else {
-                            // result: [name, category, quantity_hint]
+                           
                             if (!result[0].isEmpty()) fName.setText(result[0]);
                             if (!result[1].isEmpty()) fCategory.setText(result[1]);
-                            // quantity_hint is a numeric string when Open Food Facts
-                            // returned a net weight/volume that parsed cleanly
+                    
                             if (!result[2].isEmpty() && fQty.getText().trim().isEmpty())
                                 fQty.setText(result[2]);
 
@@ -754,9 +753,8 @@ public class InventoryDashboard extends JFrame {
         };
 
         scanBtn.addActionListener(e -> doLookup.run());
-        fBarcode.addActionListener(e -> doLookup.run()); // fires on Enter / scanner
-
-        // ── Save logic ────────────────────────────────────────────────────
+        fBarcode.addActionListener(e -> doLookup.run()); 
+        // save
         JLabel statusLbl = errorLbl();
         JButton save = saveBtn("Save Item");
         save.addActionListener(e -> {
@@ -799,7 +797,7 @@ public class InventoryDashboard extends JFrame {
             }
         });
 
-        // ── Layout ────────────────────────────────────────────────────────
+        // layout
         JPanel center = new JPanel(new BorderLayout());
         center.setBackground(WHITE);
         center.add(barcodeSection, BorderLayout.NORTH);
@@ -809,11 +807,6 @@ public class InventoryDashboard extends JFrame {
         dialog.setVisible(true);
     }
 
-    // ── OPEN FOOD FACTS LOOKUP ────────────────────────────────────────────────
-    //
-    //  Returns String[3] { productName, category, quantityHint }
-    //  or null when the barcode is not found / status != 1.
-    //
     private String[] fetchFromOpenFoodFacts(String barcode) {
         try {
             String endpoint = "https://world.openfoodfacts.org/api/v0/product/" + barcode + ".json";
@@ -833,23 +826,23 @@ public class InventoryDashboard extends JFrame {
             }
 
             JSONObject root = new JSONObject(sb.toString());
-            if (root.optInt("status", 0) != 1) return null; // not found
+            if (root.optInt("status", 0) != 1) return null; 
 
             JSONObject product = root.optJSONObject("product");
             if (product == null) return null;
 
-            // Product name: prefer localized English, fall back to generic
+          
             String name = product.optString("product_name_en", "");
             if (name.isEmpty()) name = product.optString("product_name", "");
 
-            // Category: take the first English category tag, strip the "en:" prefix
+            
             String category = "";
             if (product.has("categories_tags")) {
                 var tags = product.getJSONArray("categories_tags");
                 for (int i = 0; i < tags.length(); i++) {
                     String tag = tags.getString(i);
                     if (tag.startsWith("en:")) {
-                        // Convert "en:breakfast-cereals" → "Breakfast Cereals"
+                       
                         category = toTitleCase(tag.substring(3).replace("-", " "));
                         break;
                     }
@@ -858,8 +851,7 @@ public class InventoryDashboard extends JFrame {
             if (category.isEmpty())
                 category = product.optString("categories", "").split(",")[0].trim();
 
-            // Quantity hint: only populate the qty field when the raw
-            // "quantity" string is a plain integer (e.g. "500" not "500 ml")
+           
             String quantityHint = "";
             String rawQty = product.optString("quantity", "").trim();
             if (rawQty.matches("\\d+")) quantityHint = rawQty;
@@ -872,7 +864,7 @@ public class InventoryDashboard extends JFrame {
         }
     }
 
-    /** "breakfast cereals" → "Breakfast Cereals" */
+
     private static String toTitleCase(String input) {
         if (input == null || input.isEmpty()) return input;
         String[] words = input.split("\\s+");
@@ -886,8 +878,7 @@ public class InventoryDashboard extends JFrame {
         return sb.toString().trim();
     }
 
-    // ── UPDATE ITEM ───────────────────────────────────────────────────────────
-
+    // upddate items
     private void updateSelectedItem() {
         int row = table.getSelectedRow();
         if (row < 0) { JOptionPane.showMessageDialog(this,"Select an item first.","No Selection",JOptionPane.WARNING_MESSAGE); return; }
@@ -947,8 +938,7 @@ public class InventoryDashboard extends JFrame {
         dialog.setVisible(true);
     }
 
-    // ── DELETE ITEM ───────────────────────────────────────────────────────────
-
+    //delete items
     private void deleteSelectedItem() {
         int row = table.getSelectedRow();
         if (row < 0) { JOptionPane.showMessageDialog(this,"Select an item first.","No Selection",JOptionPane.WARNING_MESSAGE); return; }
@@ -968,7 +958,7 @@ public class InventoryDashboard extends JFrame {
         }.execute();
     }
 
-    // ── HELPERS ──────────────────────────────────────────────────────────────
+    //helper
 
     private void assembleDialog(JDialog d, JPanel form, JLabel status, JButton save) {
         JPanel bottom = new JPanel(new BorderLayout(0, 6));
