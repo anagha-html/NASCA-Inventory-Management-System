@@ -169,7 +169,7 @@ private static final String PASSWORD = "your_password";
 
 ### 5. Run the Application
 
-Run `src/main/LoginPage.java` as a Java Application. The login screen will appear.
+Run `src/ui/LoginPage.java` as a Java Application. The login screen will appear.
 
 Enter your credentials (from the `login` table in the database) to access the system.
 
