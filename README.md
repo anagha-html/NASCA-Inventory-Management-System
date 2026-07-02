@@ -2,7 +2,7 @@
 
 NASCA is a desktop-based Inventory Management System built with **Java Swing** and **MySQL**. It helps businesses efficiently manage inventory records, suppliers, stock transactions, and reports through a modern, user-friendly interface.
 
-## Important Note
+### Important Note
 
 A runnable JAR version of NASCA has been provided for convenience. However, due to image resource loading limitations during JAR packaging, some UI images may not display correctly when running the application through the JAR file.
 
